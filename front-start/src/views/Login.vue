@@ -8,19 +8,11 @@
             <router-link :to="{ name: 'reg' }">注册</router-link>
           </li>
         </ul>
-        <div
-          class="layui-form layui-tab-content"
-          id="LAY_ucm"
-          style="padding: 20px 0;"
-        >
+        <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0">
           <div class="layui-tab-item layui-show">
             <div class="layui-form layui-form-pane">
               <form method="post">
-                <validation-provider
-                  name="username"
-                  rules="required|email"
-                  v-slot="{ errors }"
-                >
+                <validation-provider name="username" rules="required|email" v-slot="{ errors }">
                   <div class="layui-form-item">
                     <label for="L_email" class="layui-form-label">用户名</label>
                     <div class="layui-input-inline">
@@ -34,15 +26,11 @@
                       />
                     </div>
                     <div class="layui-form-mid">
-                      <span style="color: #c00;">{{ errors[0] }}</span>
+                      <span style="color: #c00">{{ errors[0] }}</span>
                     </div>
                   </div>
                 </validation-provider>
-                <validation-provider
-                  name="password"
-                  rules="required|min:6"
-                  v-slot="{ errors }"
-                >
+                <validation-provider name="password" rules="required|min:6" v-slot="{ errors }">
                   <div class="layui-form-item">
                     <label for="L_pass" class="layui-form-label">密码</label>
                     <div class="layui-input-inline">
@@ -56,20 +44,14 @@
                       />
                     </div>
                     <div class="layui-form-mid">
-                      <span style="color: #c00;">{{ errors[0] }}</span>
+                      <span style="color: #c00">{{ errors[0] }}</span>
                     </div>
                   </div>
                 </validation-provider>
-                <validation-provider
-                  name="code"
-                  rules="required|length:4"
-                  v-slot="{ errors }"
-                >
+                <validation-provider name="code" rules="required|length:4" v-slot="{ errors }">
                   <div class="layui-form-item">
                     <div class="layui-row">
-                      <label for="L_vercode" class="layui-form-label"
-                        >验证码</label
-                      >
+                      <label for="L_vercode" class="layui-form-label">验证码</label>
                       <div class="layui-input-inline">
                         <input
                           type="text"
@@ -81,26 +63,19 @@
                         />
                       </div>
                       <div class>
-                        <span
-                          class="svg"
-                          style="color: #c00;"
-                          @click="_getCode()"
-                          v-html="svg"
-                        ></span>
+                        <span class="svg" style="color: #c00" @click="_getCode()" v-html="svg"></span>
                       </div>
                     </div>
                     <div class="layui-form-mid">
-                      <span style="color: #c00;">{{ errors[0] }}</span>
+                      <span style="color: #c00">{{ errors[0] }}</span>
                     </div>
                   </div>
                 </validation-provider>
 
                 <div class="layui-form-item">
                   <button class="layui-btn">立即登录</button>
-                  <span style="padding-left:20px;">
-                    <router-link :to="{ name: 'forget' }"
-                      >忘记密码？</router-link
-                    >
+                  <span style="padding-left:20px">
+                    <router-link :to="{ name: 'forget' }">忘记密码？</router-link>
                   </span>
                 </div>
                 <div class="layui-form-item fly-form-app">
@@ -128,8 +103,9 @@
 </template>
 
 <script>
-import { ValidationProvider } from 'vee-validate';
-import { getCode } from '@/api/login';
+import { ValidationProvider } from 'vee-validate'
+import { getCode } from '@/api/login'
+import uuid from 'uuid/v4'
 export default {
   name: 'login',
   components: {
@@ -144,11 +120,22 @@ export default {
     }
   },
   mounted () {
+    let sid = ''
+    if (localStorage.getItem('sid')) {
+      sid = localStorage.getItem('sid')
+    } else {
+      const sidStr = uuid()
+      sid = localStorage.setItem('sid', sidStr)
+    }
+    console.log(sid)
+    this.$store.commit('setSid', sid)
     this._getCode()
   },
   methods: {
     _getCode () {
-      getCode().then(res => {
+      const sid = this.$store.state.sid
+      console.log(sid)
+      getCode(sid).then(res => {
         console.log(res)
         if (res.code === 200) {
           this.svg = res.data
