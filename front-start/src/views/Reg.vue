@@ -13,7 +13,7 @@
             <validation-observer ref="observe" v-slot="{validate}">
               <div class="layui-form layui-form-pane">
               <form method="post">
-                <validation-provider name="username" rules="required|email" v-slot="{ errors }">
+                <validation-provider name="email" rules="required|email" v-slot="{ errors }">
                   <div class="layui-form-item">
                     <div class="layui-row">
                       <label for="L_email" class="layui-form-label">用户名</label>
@@ -34,7 +34,7 @@
                     </div>
                   </div>
                 </validation-provider>
-                <validation-provider name="name" rules="required|min:4" v-slot="{ errors }">
+                <validation-provider name="name" rules="required|min:4|isNotAllNumber" v-slot="{ errors }">
                   <div class="layui-form-item">
                     <label for="L_username" class="layui-form-label">昵称</label>
                     <div class="layui-input-inline">

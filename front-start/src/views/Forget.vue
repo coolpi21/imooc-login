@@ -54,7 +54,7 @@
           <validation-observer ref="observe" v-slot="{validate}">
             <div class="layui-form layui-form-pane">
               <form method="post">
-                <validation-provider name="username" rules="required|email" v-slot="{ errors }">
+                <validation-provider name="email" rules="required|email" v-slot="{ errors }">
                   <div class="layui-form-item">
                     <label for="L_email" class="layui-form-label">用户名</label>
                     <div class="layui-input-inline">
