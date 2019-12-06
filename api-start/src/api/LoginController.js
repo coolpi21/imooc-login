@@ -25,6 +25,12 @@ class LoginController {
       console.log(e)
     }
   }
+  async login(ctx) {
+    // 获取用户信息
+    // 验证CODE 时效性及对应性
+    // 验证用户名及密码
+    // 返回数据
+  }
 }
 
 export default new LoginController()

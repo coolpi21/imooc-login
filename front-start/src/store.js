@@ -8,7 +8,7 @@ export default new Vuex.Store({
     sid: ''
   },
   mutations: {
-    setSid(state, value) {
+    setSid (state, value) {
       state.sid = value
     }
   },

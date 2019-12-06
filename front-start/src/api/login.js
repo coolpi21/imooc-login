@@ -1,6 +1,7 @@
 import axios from '@/utils/request'
 
-const getCode = (sid) => {
+// 获取验证码接口
+const getCode = sid => {
   return axios.get('/getCaptcha', {
     params: {
       sid: sid
@@ -8,10 +9,18 @@ const getCode = (sid) => {
   })
 }
 
+// 忘记密码接口
 const forget = options => {
   return axios.post('/forget', {
     ...options
   })
 }
 
-export { getCode, forget }
+// 登录接口
+const login = loginInfo => {
+  return axios.post('/login', {
+    ...loginInfo
+  })
+}
+
+export { getCode, forget, login }
